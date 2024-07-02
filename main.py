@@ -1,4 +1,10 @@
-api_url = ('https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=python&location=United'
+import requests
+import random
+from bs4 import BeautifulSoup
+from prettytable import PrettyTable
+import time
+
+api_url = ('https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={}&location=United'
            '%2BKingdom&geoId=101165590&trk=public_jobs_jobs-search-bar_search-submit&start={}')
 
 print("* * * * * * * * * * * * * * * * * * * * * * * * * * \n"
@@ -10,20 +16,13 @@ print("* * * * * * * * * * * * * * * * * * * * * * * * * * \n"
       " └┘└─┘└─┘└─┘  └─┘└─┘┴ ┴ └─┘─┴┘   ┴ └─┘   ┴ └─┘└─┘\n"
       "* * * * * * * * * * * * * * * * * * * * * * * * * *")
 
-# IDEA: User inputs skills they have
-# Returns all the jobs available with links to find out more (maybe tabulated format)
-# ^ scraping LinkedIn jobs
-# Extension - locations outside UK
-import requests
-import random
-from bs4 import BeautifulSoup
-from prettytable import PrettyTable
-
+skill = input("Please enter a skill you have: ")
+print("\nThank you. You can take this time to grab a drink and relax - the job search has begun")
 current_page = 0
 
 
 def load_jobs(page_no):
-    page = requests.get(api_url.format(page_no))
+    page = requests.get(api_url.format(skill, page_no))
 
     soup = BeautifulSoup(page.content, "html.parser")
     return soup.find_all("div", class_="base-card")

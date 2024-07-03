@@ -1,3 +1,4 @@
 # created by virtualenv automatically
 .venv/
 .idea/
+skill_matched_jobs.csv

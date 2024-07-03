@@ -57,6 +57,7 @@ while not done:
     else:
         skill += f"+{check}"
 
+
 print("\nThe job hunt has begun!")
 current_page = 0
 
@@ -91,7 +92,7 @@ while jobs:
     jobs = load_jobs(current_page)
 
 if not jobsFound:
-    print("Sorry, no jobs were found for this criteria.")
+    print("Sorry, no jobs were found for this criteria. Try a UK-wide search or ")
 else:
     print(myTable)
     writeToFile = input("\nWould you like to export this to a csv file? (y/n): ")

@@ -2,9 +2,10 @@ import requests
 import random
 from bs4 import BeautifulSoup
 from prettytable import PrettyTable
+from geoIDMap import geoIDs
 
 api_url = ('https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={}&location=United'
-           '%2BKingdom&geoId=101165590&trk=public_jobs_jobs-search-bar_search-submit&start={}')
+           '%2BKingdom&geoId={}&trk=public_jobs_jobs-search-bar_search-submit&start={}')
 
 print("* * * * * * * * * * * * * * * * * * * * * * * * * * \n"
       "╔═╗┬┌─┬┬  ┬  ╔╦╗┌─┐┌┬┐┌─┐┬ ┬┌─┐┬─┐\n"
@@ -22,7 +23,32 @@ print("* * * * * * * * * * * * * * * * * * * * * * * * * *\n")
 done = False
 skill = ""
 
-print("Please enter all your job-related skills below, to exit - type `done`")
+print("Where are you looking for jobs? Please enter the respective number option")
+print("1. United Kingdom\n2. Reading\n3. Manchester\n4. London\n5. Newcastle\n6. Bristol\n7. Leeds\n")
+
+job_location = int(input())
+
+match job_location:
+    case 1:
+        job_location = "uk"
+    case 2:
+        job_location = "reading"
+    case 3:
+        job_location = "manchester"
+    case 4:
+        job_location = "london"
+    case 5:
+        job_location = "newcastle"
+    case 6:
+        job_location = "bristol"
+    case 7:
+        job_location = "leeds"
+    case _:
+        print("Not a valid option")
+        print("Proceeding with general UK search")
+        job_location = "uk"
+
+print("\nPlease enter all your job-related skills below, to exit - type `done`")
 
 while not done:
     check = input("Skill: ")
@@ -36,7 +62,7 @@ current_page = 0
 
 
 def load_jobs(page_no):
-    page = requests.get( api_url.format(skill, page_no))
+    page = requests.get(api_url.format(skill, geoIDs[job_location], page_no))
 
     soup = BeautifulSoup(page.content, "html.parser")
     return soup.find_all("div", class_="base-card")
@@ -57,7 +83,7 @@ while jobs:
         title_element = job.find("h3", class_="base-search-card__title").text.strip()
         company_element = job.find("a", class_="hidden-nested-link").text.strip()
         location_element = job.find("span", class_="job-search-card__location").text.strip()
-        unique_jobs.add("{}{}{}".format(title_element,company_element, location_element))
+        unique_jobs.add("{}{}{}".format(title_element, company_element, location_element))
         if len(unique_jobs) > unique_job_no:
             job_link_element = job.find("a")['href']
             myTable.add_row([title_element, company_element, location_element, job_link_element])

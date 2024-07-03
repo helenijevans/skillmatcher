@@ -92,7 +92,8 @@ while jobs:
     jobs = load_jobs(current_page)
 
 if not jobsFound:
-    print("Sorry, no jobs were found for this criteria. Try a UK-wide search or ")
+    print("Sorry, no jobs were found for this criteria.\nTIP: Try a UK-wide search or reduce the number of skills in "
+          "your search")
 else:
     print(myTable)
     writeToFile = input("\nWould you like to export this to a csv file? (y/n): ")

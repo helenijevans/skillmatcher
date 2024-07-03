@@ -2,7 +2,6 @@ import requests
 import random
 from bs4 import BeautifulSoup
 from prettytable import PrettyTable
-import csv
 
 api_url = ('https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={}&location=United'
            '%2BKingdom&geoId=101165590&trk=public_jobs_jobs-search-bar_search-submit&start={}')
@@ -70,10 +69,7 @@ if not jobsFound:
 else:
     print(myTable)
     writeToFile = input("\nWould you like to export this to a csv file? (y/n): ")
-    if writeToFile != "y":
-        print("\n\n** Done **")
-        exit()
-    else:
+    if writeToFile == "y":
         with open('skill_matched_jobs.csv', 'w', newline='') as f_output:
             f_output.write(myTable.get_csv_string())
-            print("\n\n** Done **")
+    print("\n\n** Done **")

@@ -1,4 +1,5 @@
-# SKILLMATCHER
+# SKILLMATCHER 
+<img src="logo.png" width="200">
 
 A python script that returns UK-based jobs based on your skillset.
 The script scrapes LinkedIn for jobs matching the combination of skills and keywords along with a given location. You also optionally have the choice to write the results to a csv file.

@@ -54,8 +54,14 @@ while not done:
     check = input("Skill: ")
     if check.lower() == "done":
         done = True
+    elif check.strip() == "":
+        print("Empty input detected, please try again\n")
     else:
         skill += f"+{check}"
+
+if skill == "":
+    print("You have entered no skills. Please run the program and try again.")
+    exit(0)
 
 
 print("\nThe job hunt has begun!")
@@ -92,8 +98,10 @@ while jobs:
     jobs = load_jobs(current_page)
 
 if not jobsFound:
-    print("Sorry, no jobs were found for this criteria.\nTIP: Try a UK-wide search or reduce the number of skills in "
+    print("Sorry, no jobs were found for this criteria.\nTIP: Try to reduce the number of skills in "
           "your search")
+    if job_location != "uk":
+        print("BONUS TIP: Try a UK-wide search if you're not seeing results in your area")
 else:
     print(myTable)
     writeToFile = input("\nWould you like to export this to a csv file? (y/n): ")
